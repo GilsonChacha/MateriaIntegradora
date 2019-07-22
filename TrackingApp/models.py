@@ -74,23 +74,6 @@ class RegistroActividad(models.Model):
     id = models.AutoField(primary_key=True)
     usuario = models.ForeignKey('Usuario', on_delete=models.PROTECT,
                                 null=False)
-    actividad = models.ForeignKey('Actividad', on_delete=models.PROTECT, null=True)
-    chaleco = models.ForeignKey('Chaleco', on_delete=models.PROTECT,
-                                  null=True)
-    fecha = models.DateField(default=now)
-    fecha_inicio = models.DateTimeField(null=True)
-    fecha_fin = models.DateTimeField(null=True)
-    total_horas = models.IntegerField(validators=[MinValueValidator(1)])
-    estado = models.BooleanField(default=True)
-
-    def __str__(self):
-        return "%s" % (self.nombre)
-
-class RegistroActividad(models.Model):
-    """Modelo RegistroActividad"""
-    id = models.AutoField(primary_key=True)
-    usuario = models.ForeignKey('Usuario', on_delete=models.PROTECT,
-                                null=False)
     actividad = models.ForeignKey('Actividad', on_delete=models.PROTECT,
                                   null=False)
     fecha = models.DateField(default=now)
