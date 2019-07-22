@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinLengthValidator
 from django.utils.timezone import now
+from django.core.validators import MinValueValidator
 
 class Usuario(models.Model):
     """Modelo Usuario"""
@@ -73,11 +74,10 @@ class RegistroActividad(models.Model):
     id = models.AutoField(primary_key=True)
     usuario = models.ForeignKey('Usuario', on_delete=models.PROTECT,
                                 null=False)
-   	actividad = models.ForeignKey('Actividad', on_delete=models.PROTECT,
+    actividad = models.ForeignKey('Actividad', on_delete=models.PROTECT, null=True)
+    chaleco = models.ForeignKey('Chaleco', on_delete=models.PROTECT,
                                   null=True)
-   	chaleco = models.ForeignKey('Chaleco', on_delete=models.PROTECT,
-                                  null=True)
-   	fecha = models.DateField(default=now)
+    fecha = models.DateField(default=now)
     fecha_inicio = models.DateTimeField(null=True)
     fecha_fin = models.DateTimeField(null=True)
     total_horas = models.IntegerField(validators=[MinValueValidator(1)])
@@ -91,9 +91,9 @@ class RegistroActividad(models.Model):
     id = models.AutoField(primary_key=True)
     usuario = models.ForeignKey('Usuario', on_delete=models.PROTECT,
                                 null=False)
-   	actividad = models.ForeignKey('Actividad', on_delete=models.PROTECT,
+    actividad = models.ForeignKey('Actividad', on_delete=models.PROTECT,
                                   null=False)
-   	fecha = models.DateField(default=now)
+    fecha = models.DateField(default=now)
     fecha_inicio = models.DateTimeField(null=True)
     fecha_fin = models.DateTimeField(null=True)
     total_horas = models.IntegerField(validators=[MinValueValidator(1)])
@@ -107,25 +107,25 @@ class RegistroChaleco(models.Model):
     id = models.AutoField(primary_key=True)
     usuario = models.ForeignKey('Usuario', on_delete=models.PROTECT,
                                 null=False)
-   	chaleco = models.ForeignKey('Chaleco', on_delete=models.PROTECT,
-                                  null=True)
-   	fecha = models.DateField(default=now)
+    chaleco = models.ForeignKey('Chaleco', on_delete=models.PROTECT,
+                                null=True)
+    fecha = models.DateField(default=now)
     estado = models.BooleanField(default=True)
 
     def __str__(self):
         return "%s" % (self.nombre)
 
 class RegistroTracking(models.Model):
-	    """Modelo RegistroTracking"""
+    """Modelo RegistroTracking"""
     id = models.AutoField(primary_key=True)
     registro_actividad = models.ForeignKey('RegistroActividad', on_delete=models.PROTECT,
-                                null=False)
-   	actividad = models.ForeignKey('Actividad', on_delete=models.PROTECT,
+                                           null=False)
+    actividad = models.ForeignKey('Actividad', on_delete=models.PROTECT,
                                   null=False)
-   	fecha = models.DateTimeField(default=now)
-   	latitud = models.DecimalField(max_digits=8, decimal_places=5)
-   	longitud = models.DecimalField(max_digits=8, decimal_places=5)
-   	satelites = models.IntegerField(validators=[MinValueValidator(1)])
+    fecha = models.DateTimeField(default=now)
+    latitud = models.DecimalField(max_digits=8, decimal_places=5)
+    longitud = models.DecimalField(max_digits=8, decimal_places=5)
+    satelites = models.IntegerField(validators=[MinValueValidator(1)])
     estado = models.BooleanField(default=True)
 
     def __str__(self):
