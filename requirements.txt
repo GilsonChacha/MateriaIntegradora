@@ -4,7 +4,7 @@ chardet==3.0.4
 decorator==4.4.0
 Django==2.2
 django-cors-headers==3.0.1
-djangorestframework==3.9.1
+djangorestframework==3.11.2
 idna==2.8
 ipdb==0.11
 ipython==7.6.1
